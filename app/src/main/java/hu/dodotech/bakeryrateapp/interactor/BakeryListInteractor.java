@@ -1,4 +1,4 @@
 package hu.dodotech.bakeryrateapp.interactor;
 
-public class MainInteractor {
+public class BakeryListInteractor {
 }
