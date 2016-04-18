@@ -30,7 +30,6 @@ public class BakeryListActivity extends AppCompatActivity implements BakeryListS
         setSupportActionBar(toolBar);
         BakeryApp.injector.inject(this);
         listView = (ListView) findViewById(R.id.bakeryList);
-
     }
 
     @Override

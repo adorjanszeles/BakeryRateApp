@@ -8,7 +8,6 @@ import hu.dodotech.bakeryrateapp.interactor.BakeryDetailsInteractor;
 import hu.dodotech.bakeryrateapp.interactor.BakeryListInteractor;
 import hu.dodotech.bakeryrateapp.interactor.InteractorModule;
 import hu.dodotech.bakeryrateapp.interactor.LoginAndRegisterInteractor;
-import hu.dodotech.bakeryrateapp.model.ModelModule;
 import hu.dodotech.bakeryrateapp.presenter.BakeryCreatePresenter;
 import hu.dodotech.bakeryrateapp.presenter.BakeryDetailsPresenter;
 import hu.dodotech.bakeryrateapp.presenter.BakeryListPresenter;
@@ -20,7 +19,7 @@ import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListActivity;
 import hu.dodotech.bakeryrateapp.view.login.LoginAndRegisterActivity;
 
 @Singleton
-@Component(modules = {UIModule.class, InteractorModule.class, ModelModule.class})
+@Component(modules = {UIModule.class, InteractorModule.class})
 public interface BakeryAppComponent {
     void inject(BakeryListActivity bakeryListActivity);
     void inject(BakeryCreateActivity bakeryCreateActivity);
@@ -31,9 +30,4 @@ public interface BakeryAppComponent {
     void inject(BakeryDetailsPresenter bakeryDetailsPresenter);
     void inject(BakeryListPresenter bakeryListPresenter);
     void inject(LoginAndRegisterPresenter loginAndRegisterPresenter);
-
-    void inject(BakeryCreateInteractor bakeryCreateInteractor);
-    void inject(BakeryDetailsInteractor bakeryDetailsInteractor);
-    void inject(BakeryListInteractor bakeryListInteractor);
-    void inject(LoginAndRegisterInteractor loginAndRegisterInteractor);
 }
