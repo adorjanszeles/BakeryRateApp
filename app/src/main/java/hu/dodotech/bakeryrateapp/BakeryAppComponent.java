@@ -14,7 +14,7 @@ import hu.dodotech.bakeryrateapp.presenter.BakeryDetailsPresenter;
 import hu.dodotech.bakeryrateapp.presenter.BakeryListPresenter;
 import hu.dodotech.bakeryrateapp.presenter.LoginAndRegisterPresenter;
 import hu.dodotech.bakeryrateapp.view.UIModule;
-import hu.dodotech.bakeryrateapp.view.bakerycreat.BakeryCreateActivity;
+import hu.dodotech.bakeryrateapp.view.bakerycreate.BakeryCreateActivity;
 import hu.dodotech.bakeryrateapp.view.bakerydetails.BakeryDetailsActivity;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListActivity;
 import hu.dodotech.bakeryrateapp.view.login.LoginAndRegisterActivity;
