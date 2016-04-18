@@ -1,4 +1,7 @@
 package hu.dodotech.bakeryrateapp.model;
 
-public class User {
+import com.orm.SugarRecord;
+
+public class User extends SugarRecord {
+    public User() {}
 }

@@ -1,13 +1,16 @@
 package hu.dodotech.bakeryrateapp.model;
 
-public class Bakery {
-    private Integer id;
+import com.orm.SugarRecord;
+
+public class Bakery extends SugarRecord {
     private Integer rate;
     private Integer bakeryImageResourceId;
     private Integer rateImageResourceId;
     private String name;
     private String details;
     private String address;
+
+    public Bakery(){}
 
     public Integer getBakeryImageResourceId() {
         return bakeryImageResourceId;
@@ -23,14 +26,6 @@ public class Bakery {
 
     public void setRateImageResourceId(Integer rateImageResourceId) {
         this.rateImageResourceId = rateImageResourceId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getRate() {
