@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.interactor.BakeryListInteractor;
-import hu.dodotech.bakeryrateapp.model.Bakery;
+import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListScreen;
 
 public class BakeryListPresenter extends AbstractPresenter<BakeryListScreen> {

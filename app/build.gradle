@@ -28,6 +28,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        live {
+            applicationId "hu.dodotech.bakeryrateapp.live"
+            versionName "LIVE"
+        }
+        mock {
+            applicationId "hu.dodotech.bakeryrateapp.mock"
+            versionName "MOCK"
+        }
+    }
 }
 
 dependencies {

@@ -5,20 +5,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
-import hu.dodotech.bakeryrateapp.model.Bakery;
-import hu.dodotech.bakeryrateapp.model.User;
+import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
+import hu.dodotech.bakeryrateapp.model.bakery.BakeryDal;
+import hu.dodotech.bakeryrateapp.model.user.UserDal;
 
 public class BakeryListInteractor {
     @Inject
-    protected Bakery bakery;
+    protected BakeryDal bakery;
     @Inject
-    protected User user;
+    protected UserDal user;
 
     public BakeryListInteractor() {
         BakeryApp.injector.inject(this);
     }
 
     public List<Bakery> getBakeryList() {
-        return Bakery.listAll(Bakery.class);
+        return bakery.listAllBakeryItems(Bakery.class);
     }
 }

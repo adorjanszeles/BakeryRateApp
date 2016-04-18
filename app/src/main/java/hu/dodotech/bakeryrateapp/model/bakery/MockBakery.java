@@ -1,13 +1,13 @@
-package hu.dodotech.bakeryrateapp.model;
+package hu.dodotech.bakeryrateapp.model.bakery;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
 
-public class MockBakery {
-
-    public List<Bakery> listAll(Class<?> pClass) {
+public class MockBakery implements BakeryDal {
+    @Override
+    public List<Bakery> listAllBakeryItems(Class<?> pClass) {
         List<Bakery> result = new ArrayList<>();
 
         Bakery bak1 = new Bakery();
@@ -41,5 +41,4 @@ public class MockBakery {
 
         return result;
     }
-
 }

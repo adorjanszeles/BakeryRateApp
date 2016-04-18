@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.Bakery;
+import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
 
 public class BakeryListAdapter extends BaseAdapter {
     private Context context;

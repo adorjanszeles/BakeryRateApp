@@ -1,8 +1,10 @@
-package hu.dodotech.bakeryrateapp.model;
+package hu.dodotech.bakeryrateapp.model.bakery;
 
 import com.orm.SugarRecord;
 
-public class Bakery extends SugarRecord {
+import java.util.List;
+
+public class Bakery extends SugarRecord implements BakeryDal {
     private Integer rate;
     private Integer bakeryImageResourceId;
     private Integer rateImageResourceId;
@@ -58,5 +60,10 @@ public class Bakery extends SugarRecord {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public List<Bakery> listAllBakeryItems(Class<?> pClass) {
+        return null;
     }
 }

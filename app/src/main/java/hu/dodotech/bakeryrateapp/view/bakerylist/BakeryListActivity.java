@@ -1,7 +1,7 @@
 package hu.dodotech.bakeryrateapp.view.bakerylist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.Bakery;
+import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
 import hu.dodotech.bakeryrateapp.presenter.BakeryListPresenter;
 
 public class BakeryListActivity extends AppCompatActivity implements BakeryListScreen {
