@@ -6,13 +6,13 @@ import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.User;
 
-public class BakeryListInteractor {
+public class BakeryCreateInteractor {
     @Inject
     protected Bakery bakery;
     @Inject
     protected User user;
 
-    public BakeryListInteractor() {
+    public BakeryCreateInteractor() {
         BakeryApp.injector.inject(this);
     }
 }
