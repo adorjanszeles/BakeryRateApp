@@ -2,10 +2,15 @@ package hu.dodotech.bakeryrateapp.model.bakery;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Bakery extends SugarRecord implements BakeryDal {
-    private Integer rate;
+import hu.dodotech.bakeryrateapp.common.RatingHelper;
+import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
+
+public class Bakery extends SugarRecord implements BakeryDal, Serializable {
+    private double rate;
+    private int numberOfRatings;
     private Integer bakeryImageResourceId;
     private Integer rateImageResourceId;
     private String name;
@@ -26,16 +31,19 @@ public class Bakery extends SugarRecord implements BakeryDal {
         return rateImageResourceId;
     }
 
-    public void setRateImageResourceId(Integer rateImageResourceId) {
-        this.rateImageResourceId = rateImageResourceId;
+    public void setRateImageResourceId() {
+        this.rateImageResourceId = RatingHelper.getRatingResource(this.rate);
     }
 
-    public Integer getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    public void setRate(double rate) {
+        this.numberOfRatings++;
+        this.rate += rate;
+        this.rate /= numberOfRatings;
+        setRateImageResourceId();
     }
 
     public String getName() {
@@ -65,5 +73,30 @@ public class Bakery extends SugarRecord implements BakeryDal {
     @Override
     public List<Bakery> listAllBakeryItems(Class<?> pClass) {
         return null;
+    }
+
+    @Override
+    public List<Bakery> listQueryBakery(SearchItem searchItem) {
+        return null;
+    }
+
+    @Override
+    public void addBakery(Bakery bakery) {
+
+    }
+
+    @Override
+    public void deleteBakery(Bakery bakery) {
+
+    }
+
+    @Override
+    public void modifyBakery(Bakery bakery) {
+
+    }
+
+    @Override
+    public void rateBakery(Bakery bakery) {
+
     }
 }

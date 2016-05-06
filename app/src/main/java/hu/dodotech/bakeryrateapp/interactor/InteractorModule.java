@@ -4,7 +4,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hu.dodotech.bakeryrateapp.interactor.BakeryCreateInteractor;
 
 @Module
 public class InteractorModule {
@@ -25,11 +24,4 @@ public class InteractorModule {
     public BakeryDetailsInteractor provideBakeryDetailsInteractor() {
         return new BakeryDetailsInteractor();
     }
-
-    @Provides
-    @Singleton
-    public LoginAndRegisterInteractor provideLoginAndRegisterInteractor() {
-        return new LoginAndRegisterInteractor();
-    }
-
 }

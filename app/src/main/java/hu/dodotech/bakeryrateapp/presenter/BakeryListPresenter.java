@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.interactor.BakeryListInteractor;
 import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
+import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListScreen;
 
 public class BakeryListPresenter extends AbstractPresenter<BakeryListScreen> {
@@ -17,18 +18,17 @@ public class BakeryListPresenter extends AbstractPresenter<BakeryListScreen> {
         BakeryApp.injector.inject(this);
     }
 
-    @Override
-    public void attachScreen(BakeryListScreen screen) {
-        super.attachScreen(screen);
-    }
-
-    @Override
-    public void detachScreen() {
-        super.detachScreen();
-    }
-
-    public void getBakeryItems() {
+    public void getAllBakeryItems() {
         List<Bakery> bakeryList = bakeryListInteractor.getBakeryList();
-        screen.showBakeryList(bakeryList);
+        showBakeries(bakeryList);
+    }
+
+    public void queryBakeryItems(SearchItem item) {
+        List<Bakery> bakeryList = bakeryListInteractor.queryBakeries(item);
+        showBakeries(bakeryList);
+    }
+
+    public void showBakeries(List<Bakery> bakeries) {
+        screen.showBakeryList(bakeries);
     }
 }

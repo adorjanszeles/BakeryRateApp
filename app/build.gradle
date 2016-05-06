@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "hu.dodotech.bakeryrateapp"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -33,10 +33,12 @@ android {
         live {
             applicationId "hu.dodotech.bakeryrateapp.live"
             versionName "LIVE"
+            minSdkVersion 23
         }
         mock {
             applicationId "hu.dodotech.bakeryrateapp.mock"
             versionName "MOCK"
+            minSdkVersion 23
         }
     }
 }

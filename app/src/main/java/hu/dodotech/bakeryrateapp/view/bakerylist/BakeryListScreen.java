@@ -5,5 +5,5 @@ import java.util.List;
 import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
 
 public interface BakeryListScreen {
-    void showBakeryList(List<Bakery> bakeryList);
+    void showBakeryList(List<Bakery> bakeries);
 }

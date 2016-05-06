@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.interactor.BakeryDetailsInteractor;
+import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
 import hu.dodotech.bakeryrateapp.view.bakerydetails.BakeryDetailsScreen;
 
 public class BakeryDetailsPresenter extends AbstractPresenter<BakeryDetailsScreen> {
@@ -12,5 +13,10 @@ public class BakeryDetailsPresenter extends AbstractPresenter<BakeryDetailsScree
 
     public BakeryDetailsPresenter() {
         BakeryApp.injector.inject(this);
+    }
+
+    public void modifyBakeryRatings(Bakery bakery) {
+        bakeryDetailsInteractor.modifyBakeryRatings(bakery);
+        screen.showAllBakery();
     }
 }

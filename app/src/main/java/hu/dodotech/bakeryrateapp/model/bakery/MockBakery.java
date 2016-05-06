@@ -4,41 +4,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
 
 public class MockBakery implements BakeryDal {
-    @Override
-    public List<Bakery> listAllBakeryItems(Class<?> pClass) {
-        List<Bakery> result = new ArrayList<>();
+    private List<Bakery> bakeryList;
+    private long uniqueId;
+
+    public MockBakery() {
+        bakeryList = new ArrayList<>();
+        uniqueId = 0;
 
         Bakery bak1 = new Bakery();
-        bak1.setId(1L);
+        bak1.setId(uniqueId++);
         bak1.setName("Kakóscsiga");
         bak1.setBakeryImageResourceId(R.drawable.cocoa);
-        bak1.setRateImageResourceId(R.drawable.rate_star);
+        bak1.setAddress("Műegyetem pékség");
+        bak1.setDetails("Ez aztán a csokis csiga!");
+        bak1.setRate(4D);
 
         Bakery bak2 = new Bakery();
-        bak2.setId(2L);
+        bak2.setId(uniqueId++);
         bak2.setName("Túróstáska");
+        bak2.setAddress("Kolosy tér 12.");
+        bak2.setDetails("Nem a legjobb túrós... :(");
         bak2.setBakeryImageResourceId(R.drawable.turos_taska);
-        bak2.setRateImageResourceId(R.drawable.rate_star);
+        bak2.setRate(2D);
 
         Bakery bak3 = new Bakery();
-        bak3.setId(3L);
+        bak3.setId(uniqueId++);
         bak3.setName("Gesztenyés Croissant");
+        bak3.setAddress("Nyugati aluljáró");
+        bak3.setDetails("Ez valami szörnyű volt... :(");
         bak3.setBakeryImageResourceId(R.drawable.croissant);
-        bak3.setRateImageResourceId(R.drawable.rate_star);
+        bak3.setRate(1D);
 
         Bakery bak4 = new Bakery();
-        bak4.setId(4L);
+        bak4.setId(uniqueId++);
         bak4.setName("Perec");
+        bak4.setAddress("Kiskőrösi út 12.");
+        bak4.setDetails("Legjobb perec ever... :) :)");
         bak4.setBakeryImageResourceId(R.drawable.perec);
-        bak4.setRateImageResourceId(R.drawable.rate_star);
+        bak4.setRate(5D);
 
-        result.add(bak1);
-        result.add(bak2);
-        result.add(bak3);
-        result.add(bak4);
+        bakeryList.add(bak1);
+        bakeryList.add(bak2);
+        bakeryList.add(bak3);
+        bakeryList.add(bak4);
+    }
 
-        return result;
+    @Override
+    public List<Bakery> listAllBakeryItems(Class<?> pClass) {
+        return bakeryList;
+    }
+
+    @Override
+    public List<Bakery> listQueryBakery(SearchItem searchItem) {
+        return bakeryList;
+    }
+
+    @Override
+    public void addBakery(Bakery bakery) {
+        bakery.setId(uniqueId++);
+        bakeryList.add(bakery);
+    }
+
+    @Override
+    public void deleteBakery(Bakery bakery) {
+
+    }
+
+    @Override
+    public void modifyBakery(Bakery bakery) {
+
+    }
+
+    @Override
+    public void rateBakery(Bakery bakery) {
+        bakeryList.remove(bakery);
+        bakeryList.add(bakery);
     }
 }
