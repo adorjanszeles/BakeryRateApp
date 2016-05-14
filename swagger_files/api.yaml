@@ -1,0 +1,124 @@
+swagger: '2.0'
+
+info:
+  version: "1.0"
+  title: BakeryRateApp
+
+paths:
+  /getAllBakeryItems:
+    get:
+      description: |
+        Get all `Bakery` objects in array.
+      responses:
+        200:
+          description: Bakery query run successfully
+          schema:
+            title: arrayOfBakery
+            type: array
+            items:
+              $ref: '#/definitions/Bakery'
+        404:
+          description: No bakery found
+        500:
+          description: Internal server error
+  /getBakeryItemsByConditions:
+    get:
+      description: |
+        Gets `Bakery` objects by conditions.
+      parameters:
+        - name: bakerySearchItem
+          in: body
+          description: The search condition object
+          required: true
+          schema:
+              $ref: '#/definitions/SearchItem'
+      responses:
+        200:
+          description: Bakery query run successfully
+          schema:
+            title: arrayOfBakery
+            type: array
+            items:
+              $ref: '#/definitions/Bakery'
+        404:
+          description: Not found items with higher rating than the parameter
+        500:
+          description: Internal server error
+  /createBakery:
+    post:
+      description: |
+        Create a `Bakery` objects.
+      parameters:
+        - name: bakery
+          in: body
+          description: Bakery to save
+          required: true
+          schema:
+            $ref: '#/definitions/Bakery'
+      responses:
+        200:
+          description: Bakery created successfully
+        500:
+          description: Internal server error
+  /updateBakery:
+    post:
+      description: |
+        Update a `Bakery` objects.
+      parameters:
+        - name: bakery
+          in: body
+          description: Bakery to update
+          required: true
+          schema:
+            $ref: '#/definitions/Bakery'
+      responses:
+        200:
+          description: Bakery updated succesfully
+        404:
+          description: Bakery not found
+        500:
+          description: Internal server error
+  /deleteBakery/{bakeryId}:
+    post:
+      description: |
+        Delete a `Bakery` objects.
+      parameters:
+        - name: bakeryId
+          in: path
+          description: Bakery to delete
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Bakery deleted successfully
+        404:
+          description: Bakery not found
+        500:
+          description: Internal server error
+definitions:
+  Bakery:
+    properties:
+      Id:
+        type: integer
+      name:
+        type: string
+      details:
+        type: string
+      bakeryType:
+        type: string
+      address:
+        type: string
+      rate:
+        type: number
+      price:
+        type: integer
+      picture:
+        type: string
+  SearchItem:
+    properties:
+      name:
+        type: string
+      address:
+        type: string
+      rate:
+        type: number
