@@ -78,20 +78,19 @@ public class Bakery extends SugarRecord implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null) {
             return false;
         }
         Bakery bakery = (Bakery) o;
         return Objects.equals(this.getId(), bakery.getId()) &&
                 Objects.equals(name, bakery.name) &&
                 Objects.equals(details, bakery.details) &&
-                Objects.equals(address, bakery.address) &&
-                Objects.equals(rate, bakery.rate);
+                Objects.equals(address, bakery.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), name, details, address, rate);
+        return Objects.hash(this.getId(), name, details, address);
     }
 
     @Override

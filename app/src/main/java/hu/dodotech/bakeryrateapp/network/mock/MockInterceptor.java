@@ -24,7 +24,10 @@ public class MockInterceptor implements Interceptor {
         Headers headers = request.headers();
 
         if (uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "getAllBakeryItems") ||
-            uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "createBakery")) {
+            uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "createBakery") ||
+            uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "getBakeryItemsByConditions") ||
+            uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "updateBakery") ||
+            uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "deleteBakery")) {
             return BakeryMock.process(request);
         } else {
             return MockHelper.makeResponse(request, headers, 404, "Unknown");
