@@ -1,6 +1,4 @@
-package hu.dodotech.bakeryrateapp.model.helper;
-
-import hu.dodotech.bakeryrateapp.common.FragmentType;
+package hu.dodotech.bakeryrateapp.common;
 
 public class NavigationItem {
     private String title;

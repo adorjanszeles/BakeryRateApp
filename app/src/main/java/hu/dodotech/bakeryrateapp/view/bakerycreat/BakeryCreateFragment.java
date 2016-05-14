@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
+import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.presenter.BakeryCreatePresenter;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListFragment;
 
@@ -76,5 +77,10 @@ public class BakeryCreateFragment extends Fragment implements BakeryCreateScreen
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.mainContent, fragment).commit();
         getActivity().setTitle("Minden pékáru");
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 }

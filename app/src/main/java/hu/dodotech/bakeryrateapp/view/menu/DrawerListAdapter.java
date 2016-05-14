@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.helper.NavigationItem;
+import hu.dodotech.bakeryrateapp.common.NavigationItem;
 
 public class DrawerListAdapter extends BaseAdapter {
     private Context context;

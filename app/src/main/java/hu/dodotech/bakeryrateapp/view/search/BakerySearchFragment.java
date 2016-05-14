@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
+import hu.dodotech.bakeryrateapp.common.SearchItem;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListFragment;
 
 public class BakerySearchFragment extends Fragment {

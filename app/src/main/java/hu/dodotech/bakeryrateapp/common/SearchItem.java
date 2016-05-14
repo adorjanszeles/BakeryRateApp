@@ -1,4 +1,4 @@
-package hu.dodotech.bakeryrateapp.model.helper;
+package hu.dodotech.bakeryrateapp.common;
 
 import java.io.Serializable;
 

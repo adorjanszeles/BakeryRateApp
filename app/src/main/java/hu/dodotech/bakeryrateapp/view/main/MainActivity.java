@@ -18,7 +18,7 @@ import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
 import hu.dodotech.bakeryrateapp.common.FragmentType;
-import hu.dodotech.bakeryrateapp.model.helper.NavigationItem;
+import hu.dodotech.bakeryrateapp.common.NavigationItem;
 import hu.dodotech.bakeryrateapp.view.bakerycreat.BakeryCreateFragment;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListFragment;
 import hu.dodotech.bakeryrateapp.view.menu.DrawerListAdapter;

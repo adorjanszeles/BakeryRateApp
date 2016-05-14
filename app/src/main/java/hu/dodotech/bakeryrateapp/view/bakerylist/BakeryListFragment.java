@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,8 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.bakery.Bakery;
-import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
+import hu.dodotech.bakeryrateapp.model.Bakery;
+import hu.dodotech.bakeryrateapp.common.SearchItem;
 import hu.dodotech.bakeryrateapp.presenter.BakeryListPresenter;
 import hu.dodotech.bakeryrateapp.view.bakerydetails.BakeryDetailsFragment;
 
@@ -91,5 +92,10 @@ public class BakeryListFragment extends Fragment implements BakeryListScreen {
     public void showBakeryList(List<Bakery> bakeries) {
         bakeryList = bakeries;
         listView.setAdapter(new BakeryListAdapter(getContext(), bakeryList));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 }

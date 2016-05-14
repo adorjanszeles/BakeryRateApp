@@ -1,16 +1,18 @@
-package hu.dodotech.bakeryrateapp.model.bakery;
+package hu.dodotech.bakeryrateapp.model.mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
-import hu.dodotech.bakeryrateapp.model.helper.SearchItem;
+import hu.dodotech.bakeryrateapp.common.SearchItem;
+import hu.dodotech.bakeryrateapp.model.Bakery;
+import hu.dodotech.bakeryrateapp.model.BakeryDal;
 
-public class MockBakery implements BakeryDal {
-    private List<Bakery> bakeryList;
-    private long uniqueId;
+public class MockBakeryModel implements BakeryDal {
+    private static List<Bakery> bakeryList;
+    private static long uniqueId;
 
-    public MockBakery() {
+    public MockBakeryModel() {
         bakeryList = new ArrayList<>();
         uniqueId = 0;
 
@@ -58,7 +60,7 @@ public class MockBakery implements BakeryDal {
     }
 
     @Override
-    public List<Bakery> listQueryBakery(SearchItem searchItem) {
+    public List<Bakery> listQueryBakery(Class<?> pClass, SearchItem searchItem) {
         return bakeryList;
     }
 
@@ -70,13 +72,14 @@ public class MockBakery implements BakeryDal {
 
     @Override
     public void deleteBakery(Bakery bakery) {
-
+        // TODO implement
     }
 
-    @Override
-    public void modifyBakery(Bakery bakery) {
-
-    }
+//    @Override
+//    public void modifyBakery(Bakery bakery) {
+//        bakeryList.remove(bakery);
+//        bakeryList.add(bakery);
+//    }
 
     @Override
     public void rateBakery(Bakery bakery) {
