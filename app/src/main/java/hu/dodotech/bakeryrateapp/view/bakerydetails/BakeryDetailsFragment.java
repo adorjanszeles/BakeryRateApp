@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.common.RatingHelper;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.presenter.BakeryDetailsPresenter;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListFragment;
@@ -51,10 +52,22 @@ public class BakeryDetailsFragment extends Fragment implements BakeryDetailsScre
         ImageView bakeryView = (ImageView)result.findViewById(R.id.detailsImage);
         final EditText rateNumber = (EditText)result.findViewById(R.id.detailsRating);
         Button rate = (Button)result.findViewById(R.id.rateButton);
+        Button delete = (Button)result.findViewById(R.id.deleteButton);
         rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyBakeryRating(Double.parseDouble(rateNumber.getText().toString()));
+                String rate = rateNumber.getText().toString();
+                if(rate == null || "".equals(rate)) {
+                    bakeryDetailsPresenter.showError("Nem adtál meg értékelési számot!");
+                } else {
+                    modifyBakeryRating(Integer.parseInt(rate));
+                }
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bakeryDetailsPresenter.deleteBakery(bakery);
             }
         });
         bakery = (Bakery)this.getArguments().getSerializable("bakery");
@@ -66,8 +79,8 @@ public class BakeryDetailsFragment extends Fragment implements BakeryDetailsScre
         return result;
     }
 
-    private void modifyBakeryRating(double rate) {
-        bakery.setRate(rate);
+    private void modifyBakeryRating(int rate) {
+        RatingHelper.calculatNewRating(bakery, rate);
         bakeryDetailsPresenter.modifyBakeryRatings(bakery);
     }
 

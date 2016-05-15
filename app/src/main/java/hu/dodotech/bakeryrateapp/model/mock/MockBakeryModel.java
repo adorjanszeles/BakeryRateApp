@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.common.ListSearchHelper;
+import hu.dodotech.bakeryrateapp.common.RatingHelper;
 import hu.dodotech.bakeryrateapp.common.SearchItem;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.BakeryDal;
@@ -22,7 +24,7 @@ public class MockBakeryModel implements BakeryDal {
         bak1.setBakeryImageResourceId(R.drawable.cocoa);
         bak1.setAddress("Műegyetem pékség");
         bak1.setDetails("Ez aztán a csokis csiga!");
-        bak1.setRate(4D);
+        RatingHelper.calculatNewRating(bak1, 4);
 
         Bakery bak2 = new Bakery();
         bak2.setId(uniqueId++);
@@ -30,7 +32,7 @@ public class MockBakeryModel implements BakeryDal {
         bak2.setAddress("Kolosy tér 12.");
         bak2.setDetails("Nem a legjobb túrós... :(");
         bak2.setBakeryImageResourceId(R.drawable.turos_taska);
-        bak2.setRate(2D);
+        RatingHelper.calculatNewRating(bak2, 2);
 
         Bakery bak3 = new Bakery();
         bak3.setId(uniqueId++);
@@ -38,7 +40,7 @@ public class MockBakeryModel implements BakeryDal {
         bak3.setAddress("Nyugati aluljáró");
         bak3.setDetails("Ez valami szörnyű volt... :(");
         bak3.setBakeryImageResourceId(R.drawable.croissant);
-        bak3.setRate(1D);
+        RatingHelper.calculatNewRating(bak3, 5);
 
         Bakery bak4 = new Bakery();
         bak4.setId(uniqueId++);
@@ -46,7 +48,7 @@ public class MockBakeryModel implements BakeryDal {
         bak4.setAddress("Kiskőrösi út 12.");
         bak4.setDetails("Legjobb perec ever... :) :)");
         bak4.setBakeryImageResourceId(R.drawable.perec);
-        bak4.setRate(5D);
+        RatingHelper.calculatNewRating(bak4, 3);
 
         bakeryList.add(bak1);
         bakeryList.add(bak2);
@@ -61,7 +63,7 @@ public class MockBakeryModel implements BakeryDal {
 
     @Override
     public List<Bakery> listQueryBakery(Class<?> pClass, SearchItem searchItem) {
-        return bakeryList;
+        return ListSearchHelper.searchByConditions(bakeryList, searchItem);
     }
 
     @Override
@@ -72,14 +74,8 @@ public class MockBakeryModel implements BakeryDal {
 
     @Override
     public void deleteBakery(Bakery bakery) {
-        // TODO implement
+        bakeryList.remove(bakery);
     }
-
-//    @Override
-//    public void modifyBakery(Bakery bakery) {
-//        bakeryList.remove(bakery);
-//        bakeryList.add(bakery);
-//    }
 
     @Override
     public void rateBakery(Bakery bakery) {

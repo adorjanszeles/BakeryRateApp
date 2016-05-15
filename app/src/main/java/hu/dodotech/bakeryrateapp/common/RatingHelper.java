@@ -1,6 +1,10 @@
 package hu.dodotech.bakeryrateapp.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.model.Bakery;
 
 public class RatingHelper {
     public static int getRatingResource(double rating) {
@@ -16,5 +20,22 @@ public class RatingHelper {
         else if(rating <= 4.5D && rating >= 4D) { return R.drawable.four_and_half; }
         else if(rating <= 5D && rating >= 4.5D) { return R.drawable.five; }
         else { return R.drawable.three_and_half; }
+    }
+
+    public static void calculatNewRating(Bakery bakery, int newRate) {
+        List<Integer> ratings = bakery.getRateNumbers();
+        if(ratings == null) {
+            ratings = new ArrayList<>();
+        }
+        ratings.add(newRate);
+        int numberOfRatings = bakery.getNumberOfRatings() + 1;
+        double sumRate = 0D;
+        for (Integer rate : ratings) {
+            sumRate += rate.intValue();
+        }
+        double result = sumRate / numberOfRatings;
+        bakery.setRateNumbers(ratings);
+        bakery.setNumberOfRatings(numberOfRatings);
+        bakery.setRate(result);
     }
 }

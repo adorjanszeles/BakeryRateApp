@@ -8,7 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface BakeryApi {
     /**
@@ -22,11 +21,11 @@ public interface BakeryApi {
 
     /**
      * Delete a `Bakery` objects.
-     * @param bakeryId Bakery to delete
+     * @param bakery Bakery to delete
      * @return Call<Void>
      */
-    @POST("deleteBakery/{bakeryId}")
-    Call<Void> deleteBakeryBakeryIdPost(@Path("bakeryId") Integer bakeryId);
+    @POST("deleteBakery")
+    Call<Void> deleteBakeryBakeryIdPost(@Body Bakery bakery);
 
     /**
      * Get all `Bakery` objects in array.
@@ -40,7 +39,7 @@ public interface BakeryApi {
      * @param bakerySearchItem The search condition object
      * @return Call<List<Bakery>>
      */
-    @GET("getBakeryItemsByConditions")
+    @POST("getBakeryItemsByConditions")
     Call<List<Bakery>> getBakeryItemsByConditionsGet(@Body SearchItem bakerySearchItem);
 
     /**

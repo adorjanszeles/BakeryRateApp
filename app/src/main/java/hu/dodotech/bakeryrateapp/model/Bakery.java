@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import hu.dodotech.bakeryrateapp.common.RatingHelper;
@@ -23,6 +24,8 @@ public class Bakery extends SugarRecord implements Serializable {
     private String details;
     @SerializedName("address")
     private String address;
+    @SerializedName("rateNumbers")
+    private List<Integer> rateNumbers;
 
     public Bakery(){}
 
@@ -42,10 +45,12 @@ public class Bakery extends SugarRecord implements Serializable {
         this.rateImageResourceId = RatingHelper.getRatingResource(this.rate);
     }
 
+    public double getRate() {
+        return this.rate;
+    }
+
     public void setRate(double rate) {
-        this.numberOfRatings++;
-        this.rate += rate;
-        this.rate /= numberOfRatings;
+        this.rate = rate;
         setRateImageResourceId();
     }
 
@@ -71,6 +76,22 @@ public class Bakery extends SugarRecord implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public List<Integer> getRateNumbers() {
+        return rateNumbers;
+    }
+
+    public void setRateNumbers(List<Integer> rateNumbers) {
+        this.rateNumbers = rateNumbers;
     }
 
     @Override

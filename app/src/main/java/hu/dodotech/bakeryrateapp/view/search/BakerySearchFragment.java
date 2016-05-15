@@ -32,6 +32,8 @@ public class BakerySearchFragment extends Fragment {
                 searchItem.setName(name.getText().toString());
                 if (!"".equals(rate.getText().toString())) {
                     searchItem.setRate(Double.parseDouble(rate.getText().toString()));
+                } else {
+                    searchItem.setRate(0D);
                 }
                 queryResultList(searchItem);
             }

@@ -43,10 +43,24 @@
             android:digits="012345"
             android:maxLength="1"
             android:id="@+id/detailsRating" />
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rateButton"
-            android:text="Értékel" />
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/rateButton"
+                android:text="Értékel" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/deleteButton"
+                android:text="Töröl" />
+        </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>

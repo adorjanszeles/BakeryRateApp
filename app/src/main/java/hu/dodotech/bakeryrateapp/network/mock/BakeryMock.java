@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.common.ListSearchHelper;
+import hu.dodotech.bakeryrateapp.common.RatingHelper;
+import hu.dodotech.bakeryrateapp.common.SearchItem;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.network.GsonHelper;
 import hu.dodotech.bakeryrateapp.network.NetworkConfig;
@@ -31,7 +34,7 @@ public class BakeryMock {
             return processGetAllBakeryItems(request);
         } else if (uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "createBakery") && request.method().equals("POST")) {
             return processCreateBakery(request);
-        } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "getBakeryItemsByConditions") && request.method().equals("GET")) {
+        } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "getBakeryItemsByConditions") && request.method().equals("POST")) {
            return processGetBakeryItemsByConditions(request);
         } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "updateBakery") && request.method().equals("POST")) {
             return processUpdateBakery(request);
@@ -49,18 +52,18 @@ public class BakeryMock {
         int responseCode;
         Headers headers = request.headers();
         if (!isInitialised) {
-            bakery1.setRate(2.8D);
             bakery1.setAddress("Valahol");
             bakery1.setDetails("Nagyon király valami");
             bakery1.setName("Valami");
             bakery1.setBakeryImageResourceId(R.drawable.perec);
             bakery1.setId(uniqueId++);
-            bakery2.setRate(3.8D);
+            RatingHelper.calculatNewRating(bakery1, 2);
             bakery2.setAddress("Örs");
             bakery2.setDetails("Egész jó csiga!");
             bakery2.setName("Csiga");
             bakery2.setBakeryImageResourceId(R.drawable.cocoa);
             bakery2.setId(uniqueId++);
+            RatingHelper.calculatNewRating(bakery2, 3);
             bakeryList.add(bakery1);
             bakeryList.add(bakery2);
             isInitialised = true;
@@ -142,10 +145,23 @@ public class BakeryMock {
         String responseString;
         int responseCode;
         Headers headers = request.headers();
-        List<Bakery> result = null;
-        // TODO search implement...
-        responseString = GsonHelper.getGson().toJson(result);
-        responseCode = 200;
-        return MockHelper.makeResponse(request, headers, responseCode, responseString);
+        try {
+            final Buffer buffer = new Buffer();
+            final RequestBody requestBody = request.body();
+            if (requestBody != null) {
+                requestBody.writeTo(buffer);
+            }
+            SearchItem item = GsonHelper.getGson().getAdapter(SearchItem.class).fromJson(buffer.readUtf8());
+
+            List<Bakery> result = ListSearchHelper.searchByConditions(bakeryList, item);
+
+            responseString = GsonHelper.getGson().toJson(result);
+            responseCode = 200;
+            return MockHelper.makeResponse(request, headers, responseCode, responseString);
+        } catch(Exception e) {
+            responseString = "";
+            responseCode = 500;
+            return MockHelper.makeResponse(request, headers, responseCode, responseString);
+        }
     }
 }

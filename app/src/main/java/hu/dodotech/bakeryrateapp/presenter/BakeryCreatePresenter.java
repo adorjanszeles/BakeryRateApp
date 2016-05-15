@@ -25,4 +25,8 @@ public class BakeryCreatePresenter extends AbstractPresenter<BakeryCreateScreen>
             screen.showMessage(e.getMessage());
         }
     }
+
+    public void showError(String error) {
+        screen.showMessage(error);
+    }
 }

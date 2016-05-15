@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.R;
+import hu.dodotech.bakeryrateapp.common.RatingHelper;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.presenter.BakeryCreatePresenter;
 import hu.dodotech.bakeryrateapp.view.bakerylist.BakeryListFragment;
@@ -63,11 +64,28 @@ public class BakeryCreateFragment extends Fragment implements BakeryCreateScreen
 
     private void createBakery() {
         Bakery bakery = new Bakery();
+        if("".equals(details.getText().toString())) {
+            bakeryCreatePresenter.showError("Nem adtál meg részletes leírást!");
+            return;
+        }
+        if("".equals(address.getText().toString())) {
+            bakeryCreatePresenter.showError("Nem adtál meg vásárlási címet!");
+            return;
+        }
+        if("".equals(name.getText().toString())) {
+            bakeryCreatePresenter.showError("Nem adtál meg termék nevet!");
+            return;
+        }
+        String rateNum = rate.getText().toString();
+        if("".equals(rateNum) || rateNum == null) {
+            bakeryCreatePresenter.showError("Nem adtál meg értékelést!");
+            return;
+        }
         bakery.setDetails(details.getText().toString());
         bakery.setAddress(address.getText().toString());
         bakery.setName(name.getText().toString());
-        bakery.setRate(Double.parseDouble(rate.getText().toString()));
         bakery.setBakeryImageResourceId(R.drawable.cocoa);
+        RatingHelper.calculatNewRating(bakery, Integer.parseInt(rateNum));
         bakeryCreatePresenter.addBakery(bakery);
     }
 

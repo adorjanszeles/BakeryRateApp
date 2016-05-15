@@ -36,4 +36,21 @@ public class BakeryDetailsInteractor {
             throw new Exception("Network error with post!");
         }
     }
+
+    public void deleteBakeryFromDb(Bakery bak) {
+        bakeryDal.deleteBakery(bak);
+    }
+
+    public void deleteBakeryFromNetwork(Bakery bak) throws Exception {
+        Response response;
+        Call call = bakeryApi.deleteBakeryBakeryIdPost(bak);
+        try {
+            response = call.execute();
+        } catch (Exception e) {
+            throw new Exception("Network error on execute with post!");
+        }
+        if (response.code() != 200) {
+            throw new Exception("Network error with post!");
+        }
+    }
 }

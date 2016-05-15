@@ -25,4 +25,19 @@ public class BakeryDetailsPresenter extends AbstractPresenter<BakeryDetailsScree
             screen.showMessage(e.getMessage());
         }
     }
+
+    public void deleteBakery(Bakery bakery) {
+        try {
+            bakeryDetailsInteractor.deleteBakeryFromNetwork(bakery);
+            screen.showAllBakery();
+        } catch (Exception e) {
+            bakeryDetailsInteractor.deleteBakeryFromDb(bakery);
+            screen.showAllBakery();
+            screen.showMessage(e.getMessage());
+        }
+    }
+
+    public void showError(String error) {
+        screen.showMessage(error);
+    }
 }
