@@ -9,7 +9,10 @@ public class ListSearchHelper {
     public static List<Bakery> searchByConditions(List<Bakery> bakeries, SearchItem item) {
         String name = item.getName();
         String address = item.getAddress();
-        double rate = item.getRate();
+        double rate = 0;
+        if(item.getRate() != null) {
+            rate = item.getRate();
+        }
         List<Bakery> result = new ArrayList<>();
         for (Bakery bakery : bakeries) {
             boolean isName = false;
