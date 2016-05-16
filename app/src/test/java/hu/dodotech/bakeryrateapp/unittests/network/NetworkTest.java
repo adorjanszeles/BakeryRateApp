@@ -44,77 +44,89 @@ public class NetworkTest {
     @Test
     public void testGetAllBakeryItems() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
-        int responseListSize = bakeryList.size();
-        String firstElementName = bakeryList.get(0).getName();
-        String secondElementName = bakeryList.get(1).getName();
-        assertEquals(2, responseListSize);
-        assertEquals("Valami", firstElementName);
-        assertEquals("Csiga", secondElementName);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            Response response = bakeryApi.getAllBakeryItemsGet().execute();
+            List<Bakery> bakeryList = (List<Bakery>)response.body();
+            int responseListSize = bakeryList.size();
+            String firstElementName = bakeryList.get(0).getName();
+            String secondElementName = bakeryList.get(1).getName();
+            assertEquals(2, responseListSize);
+            assertEquals("Valami", firstElementName);
+            assertEquals("Csiga", secondElementName);
+        }
     }
 
     @Test
     public void testAddBakeryItems() throws Exception {
         BakeryMock.clearList();
-        Bakery bak = new Bakery();
-        bak.setName("test bak");
-        bakeryApi.createBakeryPost(bak).execute();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
-        int responseListSize = bakeryList.size();
-        String name = bakeryList.get(2).getName();
-        assertEquals(3, responseListSize);
-        assertEquals("test bak", name);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            Bakery bak = new Bakery();
+            bak.setName("test bak");
+            bakeryApi.createBakeryPost(bak).execute();
+            Response response = bakeryApi.getAllBakeryItemsGet().execute();
+            List<Bakery> bakeryList = (List<Bakery>)response.body();
+            int responseListSize = bakeryList.size();
+            String name = bakeryList.get(2).getName();
+            assertEquals(3, responseListSize);
+            assertEquals("test bak", name);
+        }
     }
 
     @Test
     public void testDeleteBakeryItems() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryListBeforeDelete = (List<Bakery>)response.body();
-        int responseListSizeBeforeDelete = bakeryListBeforeDelete.size();
-        bakeryApi.deleteBakeryBakeryIdPost(bakeryListBeforeDelete.get(0)).execute();
-        response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryListAfterDelete = (List<Bakery>)response.body();
-        int responseListSizeAfterDelete = bakeryListAfterDelete.size();
-        String afterDeleteName = bakeryListAfterDelete.get(0).getName();
-        assertEquals(2, responseListSizeBeforeDelete);
-        assertEquals(1, responseListSizeAfterDelete);
-        assertEquals("Csiga", afterDeleteName);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            Response response = bakeryApi.getAllBakeryItemsGet().execute();
+            List<Bakery> bakeryListBeforeDelete = (List<Bakery>)response.body();
+            int responseListSizeBeforeDelete = bakeryListBeforeDelete.size();
+            bakeryApi.deleteBakeryBakeryIdPost(bakeryListBeforeDelete.get(0)).execute();
+            response = bakeryApi.getAllBakeryItemsGet().execute();
+            List<Bakery> bakeryListAfterDelete = (List<Bakery>)response.body();
+            int responseListSizeAfterDelete = bakeryListAfterDelete.size();
+            String afterDeleteName = bakeryListAfterDelete.get(0).getName();
+            assertEquals(2, responseListSizeBeforeDelete);
+            assertEquals(1, responseListSizeAfterDelete);
+            assertEquals("Csiga", afterDeleteName);
+        }
     }
 
     @Test
     public void testQueryBakeryItems() throws Exception {
         BakeryMock.clearList();
-        SearchItem item = new SearchItem();
-        item.setName("Csiga");
-        Response response = bakeryApi.getBakeryItemsByConditionsGet(item).execute();
-        List<Bakery> resultList = (List<Bakery>)response.body();
-        int resultListSize = resultList.size();
-        String resultName = resultList.get(0).getName();
-        assertEquals(1, resultListSize);
-        assertEquals("Csiga", resultName);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            SearchItem item = new SearchItem();
+            item.setName("Csiga");
+            Response response = bakeryApi.getBakeryItemsByConditionsGet(item).execute();
+            List<Bakery> resultList = (List<Bakery>)response.body();
+            int resultListSize = resultList.size();
+            String resultName = resultList.get(0).getName();
+            assertEquals(1, resultListSize);
+            assertEquals("Csiga", resultName);
+        }
     }
 
     @Test
     public void testRateFunction() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
-        Bakery toRate = bakeryList.get(0);
-        RatingHelper.calculatNewRating(toRate, 4);
-        bakeryApi.updateBakeryPost(toRate).execute();
-        response = bakeryApi.getAllBakeryItemsGet().execute();
-        bakeryList = (List<Bakery>)response.body();
-        assertEquals(((2D + 4D) / 2D), bakeryList.get(0).getRate(), 0.001);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            Response response = bakeryApi.getAllBakeryItemsGet().execute();
+            List<Bakery> bakeryList = (List<Bakery>)response.body();
+            Bakery toRate = bakeryList.get(0);
+            RatingHelper.calculatNewRating(toRate, 4);
+            bakeryApi.updateBakeryPost(toRate).execute();
+            response = bakeryApi.getAllBakeryItemsGet().execute();
+            bakeryList = (List<Bakery>)response.body();
+            assertEquals(((2D + 4D) / 2D), bakeryList.get(0).getRate(), 0.001);
+        }
     }
 
     @Test
     public void testNetworkCodeError() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.testWrongPath().execute();
-        int responseCode = response.code();
-        assertEquals(404, responseCode);
+        if(BuildConfig.FLAVOR.equals("mock")) {
+            Response response = bakeryApi.testWrongPath().execute();
+            int responseCode = response.code();
+            assertEquals(404, responseCode);
+        }
     }
 }
