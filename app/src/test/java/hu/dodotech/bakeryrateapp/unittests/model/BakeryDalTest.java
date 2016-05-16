@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.BuildConfig;
+import hu.dodotech.bakeryrateapp.R;
 import hu.dodotech.bakeryrateapp.RobolectricDaggerTestRunner;
 import hu.dodotech.bakeryrateapp.TestComponent;
 import hu.dodotech.bakeryrateapp.TestHelper;
@@ -174,5 +175,35 @@ public class BakeryDalTest {
         Bakery afterRate = bakeryDal.listAllBakeryItems(Bakery.class).get(3);
         double rate = afterRate.getRate();
         assertEquals(((4.0D + 2.0D) / 2.0D), rate, 0.001);
+    }
+
+    @Test
+    public void testRatingResourceLoader() throws Exception {
+        int oneStar = RatingHelper.getRatingResource(0.8D);
+        int oneAndHalfStar = RatingHelper.getRatingResource(1.3D);
+        int twoStar = RatingHelper.getRatingResource(1.8D);
+        int twoAndHalfStar = RatingHelper.getRatingResource(2.3D);
+        int threeStar = RatingHelper.getRatingResource(2.8D);
+        int threeAndHalfStar = RatingHelper.getRatingResource(3.3D);
+        int fourStar = RatingHelper.getRatingResource(3.8D);
+        int fourAndHalfStar = RatingHelper.getRatingResource(4.3D);
+        int fiveStar = RatingHelper.getRatingResource(4.8D);
+        int lessThanZero = RatingHelper.getRatingResource(-1D);
+        int threeAndAHalfUpperBound = RatingHelper.getRatingResource(3.5D);
+        int fourStarUpperBound = RatingHelper.getRatingResource(4.0D);
+        int fourStarLowerBound = RatingHelper.getRatingResource(3.51D);
+        assertEquals(R.drawable.one, oneStar);
+        assertEquals(R.drawable.one_and_half, oneAndHalfStar);
+        assertEquals(R.drawable.two, twoStar);
+        assertEquals(R.drawable.two_and_half, twoAndHalfStar);
+        assertEquals(R.drawable.three, threeStar);
+        assertEquals(R.drawable.three_and_half, threeAndHalfStar);
+        assertEquals(R.drawable.four, fourStar);
+        assertEquals(R.drawable.four_and_half, fourAndHalfStar);
+        assertEquals(R.drawable.five, fiveStar);
+        assertEquals(R.drawable.zero, lessThanZero);
+        assertEquals(R.drawable.three_and_half, threeAndAHalfUpperBound);
+        assertEquals(R.drawable.four, fourStarUpperBound);
+        assertEquals(R.drawable.four, fourStarLowerBound);
     }
 }
