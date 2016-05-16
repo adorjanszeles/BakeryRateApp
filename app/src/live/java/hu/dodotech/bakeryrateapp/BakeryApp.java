@@ -12,4 +12,12 @@ public class BakeryApp extends Application {
         super.onCreate();
         injector = DaggerBakeryAppComponent.builder().uIModule(new UIModule()).build();
     }
+
+    public void setInjector(BakeryAppComponent injector) {
+        BakeryApp.injector = injector;
+    }
+
+    public BakeryAppComponent getInjector() {
+        return injector;
+    }
 }
