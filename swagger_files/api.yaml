@@ -22,7 +22,7 @@ paths:
         500:
           description: Internal server error
   /getBakeryItemsByConditions:
-    get:
+    post:
       description: |
         Gets `Bakery` objects by conditions.
       parameters:
@@ -78,16 +78,17 @@ paths:
           description: Bakery not found
         500:
           description: Internal server error
-  /deleteBakery/{bakeryId}:
+  /deleteBakery:
     post:
       description: |
         Delete a `Bakery` objects.
       parameters:
-        - name: bakeryId
-          in: path
-          description: Bakery to delete
+        - name: bakery
+          in: body
+          description: Bakery to update
           required: true
-          type: integer
+          schema:
+            $ref: '#/definitions/Bakery'
       responses:
         200:
           description: Bakery deleted successfully
