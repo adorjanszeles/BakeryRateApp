@@ -11,11 +11,10 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
 
     lintOptions {
-
+        abortOnError false
     }
 
     signingConfigs {
@@ -53,22 +52,21 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.github.satyan:sugar:1.4'
-    compile 'com.android.support:multidex:1.0.1'
 
-    apt 'com.google.dagger:dagger-compiler:2.2'
-    compile 'com.google.dagger:dagger:2.2'
-    compile "com.google.dagger:dagger-compiler:2.2"
+    // Dagger 2
+    compile "com.google.dagger:dagger-compiler:2.0.1"
+    compile 'com.google.dagger:dagger:2.0.1'
+    apt "com.google.dagger:dagger-compiler:2.0.1"
     provided 'javax.annotation:jsr250-api:1.0'
 
-
-    // Retrofit
+    // Retrofit and OkHttp
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
     compile 'com.google.code.gson:gson:2.4'
 
-    //Robolectric
+    // Robolectric
     testCompile('org.robolectric:shadows-support-v4:3.0-rc3') {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
