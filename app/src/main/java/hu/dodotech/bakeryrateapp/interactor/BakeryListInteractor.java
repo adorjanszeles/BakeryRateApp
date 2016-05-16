@@ -9,7 +9,6 @@ import hu.dodotech.bakeryrateapp.common.SearchItem;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.BakeryDal;
 import hu.dodotech.bakeryrateapp.network.BakeryApi;
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class BakeryListInteractor {
@@ -29,10 +28,8 @@ public class BakeryListInteractor {
 
     public List<Bakery> getBakeryListFromNetwork() throws Exception {
         Response<List<Bakery>> response;
-
-        Call<List<Bakery>> call = bakeryApi.getAllBakeryItemsGet();
         try {
-            response = call.execute();
+            response = bakeryApi.getAllBakeryItemsGet().execute();
         } catch (Exception e) {
             throw new Exception("Network error on execute!");
         }
@@ -48,10 +45,8 @@ public class BakeryListInteractor {
 
     public List<Bakery> getBakeryListByConditionsFromNetwork(SearchItem item) throws Exception {
         Response<List<Bakery>> response;
-
-        Call<List<Bakery>> call = bakeryApi.getBakeryItemsByConditionsGet(item);
         try {
-            response = call.execute();
+            response = bakeryApi.getBakeryItemsByConditionsGet(item).execute();
         } catch (Exception e) {
             throw new Exception("Network error on execute!");
         }

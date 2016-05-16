@@ -26,10 +26,12 @@ public class BakeryMock {
     private static long uniqueId = 0;
 
     public static Response process(Request request) {
+
         Uri uri = Uri.parse(request.url().toString());
         String responseString;
         int responseCode;
         Headers headers = request.headers();
+        initializeListIfNecessary();
         if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "getAllBakeryItems") && request.method().equals("GET")) {
             return processGetAllBakeryItems(request);
         } else if (uri.getPath().startsWith(NetworkConfig.ENDPOINT_PREFIX + "createBakery") && request.method().equals("POST")) {
@@ -47,10 +49,7 @@ public class BakeryMock {
         }
     }
 
-    private static Response processGetAllBakeryItems(Request request) {
-        String responseString;
-        int responseCode;
-        Headers headers = request.headers();
+    private static void initializeListIfNecessary() {
         if (!isInitialised) {
             bakery1.setAddress("Valahol");
             bakery1.setDetails("Nagyon király valami");
@@ -68,6 +67,12 @@ public class BakeryMock {
             bakeryList.add(bakery2);
             isInitialised = true;
         }
+    }
+
+    private static Response processGetAllBakeryItems(Request request) {
+        String responseString;
+        int responseCode;
+        Headers headers = request.headers();
         responseString = GsonHelper.getGson().toJson(bakeryList);
         responseCode = 200;
         return MockHelper.makeResponse(request, headers, responseCode, responseString);
@@ -163,5 +168,18 @@ public class BakeryMock {
             responseCode = 500;
             return MockHelper.makeResponse(request, headers, responseCode, responseString);
         }
+    }
+
+    public static void clearList() {
+        if(bakeryList == null) {
+            bakeryList = new ArrayList<>();
+        }
+        bakeryList.clear();
+        isInitialised = false;
+    }
+
+    public static void setIsInitialisedFalse() {
+        isInitialised = false;
+        bakeryList = null;
     }
 }

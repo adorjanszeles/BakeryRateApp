@@ -6,7 +6,6 @@ import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.BakeryDal;
 import hu.dodotech.bakeryrateapp.network.BakeryApi;
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class BakeryDetailsInteractor {
@@ -26,9 +25,8 @@ public class BakeryDetailsInteractor {
 
     public void modifyBakeryRatingsInNetwork(Bakery bak) throws Exception {
         Response response;
-        Call call = bakeryApi.updateBakeryPost(bak);
         try {
-            response = call.execute();
+            response = bakeryApi.updateBakeryPost(bak).execute();
         } catch (Exception e) {
             throw new Exception("Network error on execute with post!");
         }
@@ -43,9 +41,8 @@ public class BakeryDetailsInteractor {
 
     public void deleteBakeryFromNetwork(Bakery bak) throws Exception {
         Response response;
-        Call call = bakeryApi.deleteBakeryBakeryIdPost(bak);
         try {
-            response = call.execute();
+            response = bakeryApi.deleteBakeryBakeryIdPost(bak).execute();
         } catch (Exception e) {
             throw new Exception("Network error on execute with post!");
         }

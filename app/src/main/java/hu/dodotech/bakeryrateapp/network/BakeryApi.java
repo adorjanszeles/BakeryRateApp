@@ -49,4 +49,11 @@ public interface BakeryApi {
      */
     @POST("updateBakery")
     Call<Void> updateBakeryPost(@Body Bakery bakery);
+
+    /**
+     * Helper method to test wrong path logic.
+     * @return
+     */
+    @GET("wrongPath")
+    Call<Void> testWrongPath();
 }

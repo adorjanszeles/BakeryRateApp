@@ -20,17 +20,23 @@ import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.BakeryDal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(RobolectricDaggerTestRunner.class)
 @Config(constants = BuildConfig.class, sdk=21)
 public class BakeryDalTest {
     @Inject
-    public BakeryDal bakeryDal;
+    protected BakeryDal bakeryDal;
 
     @Before
     public void setUp() throws Exception {
         BakeryApp app = TestHelper.setTestInjector();
         ((TestComponent) app.getInjector()).inject(this);
+    }
+
+    @Test
+    public void testInjectionOk() throws Exception {
+        assertNotEquals(null, bakeryDal);
     }
 
     @Test
@@ -40,7 +46,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void firstElementCheckByAttributes() throws Exception {
+    public void testGetFirstElementByAttributes() throws Exception {
         String firstElementName = bakeryDal.listAllBakeryItems(Bakery.class).get(0).getName();
         String firstElementAddress = bakeryDal.listAllBakeryItems(Bakery.class).get(0).getAddress();
         String firstElementDetails = bakeryDal.listAllBakeryItems(Bakery.class).get(0).getDetails();
@@ -54,7 +60,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void addBakeryTest() throws Exception {
+    public void testAddBakery() throws Exception {
         Bakery bak5 = new Bakery();
         bak5.setName("Test bak");
         bakeryDal.addBakery(bak5);
@@ -68,7 +74,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void deleteBakeryTest() throws Exception {
+    public void testDeleteBakery() throws Exception {
         Bakery toDelete = bakeryDal.listAllBakeryItems(Bakery.class).get(0);
         bakeryDal.deleteBakery(toDelete);
         int listCountAfterDelete = bakeryDal.listAllBakeryItems(Bakery.class).size();
@@ -76,7 +82,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByOnlyName() throws Exception {
+    public void testSearchByOnlyName() throws Exception {
         SearchItem item = new SearchItem();
         item.setName("csiga");
         List<Bakery> resultList = bakeryDal.listQueryBakery(Bakery.class, item);
@@ -87,7 +93,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByOnlyAddress() throws Exception {
+    public void testSearchByOnlyAddress() throws Exception {
         SearchItem item = new SearchItem();
         item.setAddress("olosy");
         List<Bakery> resultList = bakeryDal.listQueryBakery(Bakery.class, item);
@@ -98,7 +104,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByOnlyRate() throws Exception {
+    public void testSearchByOnlyRate() throws Exception {
         SearchItem item = new SearchItem();
         item.setRate(4D);
         List<Bakery> resultList = bakeryDal.listQueryBakery(Bakery.class, item);
@@ -111,7 +117,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByAddressAndName() throws Exception {
+    public void testSearchByAddressAndName() throws Exception {
         SearchItem item = new SearchItem();
         item.setName("Kakóscsiga");
         item.setAddress("Műegyetem pékség");
@@ -123,7 +129,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByRateAndName() throws Exception {
+    public void testSearchByRateAndName() throws Exception {
         SearchItem item = new SearchItem();
         item.setName("Perec");
         item.setRate(3D);
@@ -135,7 +141,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByRateAndAddress() throws Exception {
+    public void testSearchByRateAndAddress() throws Exception {
         SearchItem item = new SearchItem();
         item.setAddress("Kiskőrösi út 12.");
         item.setRate(3D);
@@ -147,7 +153,7 @@ public class BakeryDalTest {
     }
 
     @Test
-    public void searchByRateAndAddressAndName() throws Exception {
+    public void testSearchByRateAndAddressAndName() throws Exception {
         SearchItem item = new SearchItem();
         item.setName("Perec");
         item.setAddress("Kiskőrösi út 12.");

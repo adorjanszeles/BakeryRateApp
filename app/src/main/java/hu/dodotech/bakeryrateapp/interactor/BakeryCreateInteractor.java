@@ -6,7 +6,6 @@ import hu.dodotech.bakeryrateapp.BakeryApp;
 import hu.dodotech.bakeryrateapp.model.Bakery;
 import hu.dodotech.bakeryrateapp.model.BakeryDal;
 import hu.dodotech.bakeryrateapp.network.BakeryApi;
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class BakeryCreateInteractor {
@@ -26,9 +25,8 @@ public class BakeryCreateInteractor {
 
     public void addBakeryToNetwork(Bakery bak) throws Exception {
         Response response;
-        Call call = bakeryApi.createBakeryPost(bak);
         try {
-            response = call.execute();
+            response = bakeryApi.createBakeryPost(bak).execute();
         } catch (Exception e) {
             throw new Exception("Network error on execute!");
         }

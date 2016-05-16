@@ -1,4 +1,4 @@
-package hu.dodotech.bakeryrateapp.unittests.network;
+package hu.dodotech.bakeryrateapp.unittests.interactor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,19 +16,26 @@ import hu.dodotech.bakeryrateapp.TestComponent;
 import hu.dodotech.bakeryrateapp.TestHelper;
 import hu.dodotech.bakeryrateapp.common.RatingHelper;
 import hu.dodotech.bakeryrateapp.common.SearchItem;
+import hu.dodotech.bakeryrateapp.interactor.BakeryCreateInteractor;
+import hu.dodotech.bakeryrateapp.interactor.BakeryDetailsInteractor;
+import hu.dodotech.bakeryrateapp.interactor.BakeryListInteractor;
 import hu.dodotech.bakeryrateapp.model.Bakery;
-import hu.dodotech.bakeryrateapp.network.BakeryApi;
 import hu.dodotech.bakeryrateapp.network.mock.BakeryMock;
-import retrofit2.Response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 @RunWith(RobolectricDaggerTestRunner.class)
 @Config(constants = BuildConfig.class, sdk=21)
-public class NetworkTest {
+public class InteractorTest {
     @Inject
-    protected BakeryApi bakeryApi;
+    protected BakeryCreateInteractor bakeryCreateInteractor;
+
+    @Inject
+    protected BakeryDetailsInteractor bakeryDetailsInteractor;
+
+    @Inject
+    protected BakeryListInteractor bakeryListInteractor;
 
     @Before
     public void setUp() throws Exception {
@@ -38,14 +45,15 @@ public class NetworkTest {
 
     @Test
     public void testInjectionOk() throws Exception {
-        assertNotEquals(null, bakeryApi);
+        assertNotEquals(null, bakeryCreateInteractor);
+        assertNotEquals(null, bakeryDetailsInteractor);
+        assertNotEquals(null, bakeryListInteractor);
     }
 
     @Test
     public void testGetAllBakeryItems() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
+        List<Bakery> bakeryList = bakeryListInteractor.getBakeryListFromNetwork();
         int responseListSize = bakeryList.size();
         String firstElementName = bakeryList.get(0).getName();
         String secondElementName = bakeryList.get(1).getName();
@@ -59,9 +67,8 @@ public class NetworkTest {
         BakeryMock.clearList();
         Bakery bak = new Bakery();
         bak.setName("test bak");
-        bakeryApi.createBakeryPost(bak).execute();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
+        bakeryCreateInteractor.addBakeryToNetwork(bak);
+        List<Bakery> bakeryList = bakeryListInteractor.getBakeryListFromNetwork();
         int responseListSize = bakeryList.size();
         String name = bakeryList.get(2).getName();
         assertEquals(3, responseListSize);
@@ -71,12 +78,10 @@ public class NetworkTest {
     @Test
     public void testDeleteBakeryItems() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryListBeforeDelete = (List<Bakery>)response.body();
+        List<Bakery> bakeryListBeforeDelete = bakeryListInteractor.getBakeryListFromNetwork();
         int responseListSizeBeforeDelete = bakeryListBeforeDelete.size();
-        bakeryApi.deleteBakeryBakeryIdPost(bakeryListBeforeDelete.get(0)).execute();
-        response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryListAfterDelete = (List<Bakery>)response.body();
+        bakeryDetailsInteractor.deleteBakeryFromNetwork(bakeryListBeforeDelete.get(0));
+        List<Bakery> bakeryListAfterDelete = bakeryListInteractor.getBakeryListFromNetwork();
         int responseListSizeAfterDelete = bakeryListAfterDelete.size();
         String afterDeleteName = bakeryListAfterDelete.get(0).getName();
         assertEquals(2, responseListSizeBeforeDelete);
@@ -89,8 +94,7 @@ public class NetworkTest {
         BakeryMock.clearList();
         SearchItem item = new SearchItem();
         item.setName("Csiga");
-        Response response = bakeryApi.getBakeryItemsByConditionsGet(item).execute();
-        List<Bakery> resultList = (List<Bakery>)response.body();
+        List<Bakery> resultList = bakeryListInteractor.getBakeryListByConditionsFromNetwork(item);
         int resultListSize = resultList.size();
         String resultName = resultList.get(0).getName();
         assertEquals(1, resultListSize);
@@ -100,21 +104,25 @@ public class NetworkTest {
     @Test
     public void testRateFunction() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.getAllBakeryItemsGet().execute();
-        List<Bakery> bakeryList = (List<Bakery>)response.body();
+        List<Bakery> bakeryList = bakeryListInteractor.getBakeryListFromNetwork();
         Bakery toRate = bakeryList.get(0);
         RatingHelper.calculatNewRating(toRate, 4);
-        bakeryApi.updateBakeryPost(toRate).execute();
-        response = bakeryApi.getAllBakeryItemsGet().execute();
-        bakeryList = (List<Bakery>)response.body();
+        bakeryDetailsInteractor.modifyBakeryRatingsInNetwork(toRate);
+        bakeryList = bakeryListInteractor.getBakeryListFromNetwork();
         assertEquals(((2D + 4D) / 2D), bakeryList.get(0).getRate(), 0.001);
     }
 
     @Test
-    public void testNetworkCodeError() throws Exception {
+    public void testNetworkOnExecuteError() throws Exception {
         BakeryMock.clearList();
-        Response response = bakeryApi.testWrongPath().execute();
-        int responseCode = response.code();
-        assertEquals(404, responseCode);
+        BakeryMock.setIsInitialisedFalse();
+        String exception = "";
+        try {
+            bakeryListInteractor.getBakeryListFromNetwork();
+        } catch(Exception e) {
+            exception = e.getMessage();
+        } finally {
+            assertEquals("Network error on execute!", exception);
+        }
     }
 }
